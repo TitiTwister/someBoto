@@ -1,0 +1,20 @@
+{
+
+"master":
+	{
+		"number": 3,
+		"profile": "kube_node",
+		"hostname": "MASTER",
+		"ip": ["10.44.100.91","10.44.100.92", "10.44.100.93" ]
+	},
+
+"etcd":
+	{
+		"number": 3,
+		"profile": "etcd",
+		"hostname": "ETCD",
+		"ip": ["10.44.100.61","10.44.100.62", "10.44.100.63" ]
+
+	}
+
+}

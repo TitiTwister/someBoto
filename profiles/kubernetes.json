@@ -1,0 +1,21 @@
+{
+"kube_node": 
+	{
+		"type": "m4.large",
+		"ami": "ami-ef2d4795",
+		"sg": "sg-ed95462b",
+		"vpc": "subnet-a76eeca5",
+		"key": "KUBERNETES_SERVER"
+	},
+
+"etcd":
+	{
+		"type": "m4.large",
+                "ami": "ami-ef2d4795",
+                "sg": "sg-ed95462b",
+                "vpc": "subnet-a76eeca5",
+		"key": "KUBERNETES_SERVER"
+	}
+		
+}
+	

@@ -70,7 +70,7 @@ def create_route_table(vpc, int_gw):
 	)
 	dmz_route_table.associate_with_subnet(SubnetId=dmz_subnet.id)
 	
-	server_route_table = ec2.create_route_table(
+	server_route_table = ec2.create_route_table	(
 	    VpcId=vpc.id
 	)
 	
@@ -86,7 +86,8 @@ def create_route_table(vpc, int_gw):
         ec2.create_tags(Resources = [server_route_table.id], Tags=[{'Key': 'Name', 'Value': PROJECT_NAME+'_SERVER'}])
 
 def create_security_group(PROJECT_NAME, vpc, DMZ_SUBNET_IP):
-
+	""
+	""
 	for subnet in ['DMZ', 'SERVER'] :
 		security_group = ec2.create_security_group(
 		    GroupName=PROJECT_NAME+'_'+subnet , Description='Security rules for ' + subnet, VpcId=vpc.id)
