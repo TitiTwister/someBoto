@@ -48,12 +48,17 @@ def create_hosts(profiles, hosts):
     
     for key in hosts :
         for i in range(0, hosts[key]["number"]):
-            create_instance_vpc(profiles[hosts[key]["profile"]], hosts[key]["ip"][i], hosts[key]["hostname"]+'-'+str(i+1))
+            hostname = hosts[key]["hostname"]+'-'+str(i+1)
+
+            create_instance_vpc(profiles[hosts[key]["profile"]], hosts[key]["ip"][i], hostname)
             print("Instance : %s created"%(hosts[key]["ip"][i]))
             if hosts[key]["salt"] == "minion" :
-                ssh_operations.ssh_commands(hosts[key]["ip"][i], KEY_REPOSITORY + hosts[key]["key"], ['hash_type: sha256',
-                                                                        'sudo yum install -y salt-minion',
-                                                                        "echo -e 'id: %S\nmaster: %s' > /etc/salt/minion"%(hosts[key]["hostname"]+'-'+str(i+1).lower(), SALTMASTER)])
+                ssh_operations.ssh_commands(hosts[key]["ip"][i], 
+                                            KEY_REPOSITORY + 'outscale_' + profiles[hosts[key]["profile"]["key"], 
+                                            ['hash_type: sha256',
+                                                'sudo yum install -y salt-minion',
+                                                 "echo -e 'id: %S\nmaster: %s' > /etc/salt/minion"%(hostname.lower(), 
+                                            SALTMASTER)])
                 print("Instance : %s salt-minion installed"%(hosts[key]["ip"][i]))
     return 0
 
