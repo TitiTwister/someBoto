@@ -1,6 +1,6 @@
 import sys, paramiko
 
-def ssh_commands(hostname, key, commands, username='centos', password='nope', port=22)
+def ssh_commands(hostname, key, commands, username='centos', password='nope', port=22):
     
     commands = [ "ls /home/centos","ls /etc/salt"]
     ssh = paramiko.SSHClient()
