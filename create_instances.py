@@ -4,10 +4,6 @@ import sys, os
 import boto3
 from login import ec2, client
 import json
-import ssh_operations
-
-SALTMASTER = 'x.x.x.x'
-KEY_REPOSITORY = '/etc/salt/key/'
 
 def get_hosts(project):
     
@@ -49,17 +45,10 @@ def create_hosts(profiles, hosts):
     for key in hosts :
         for i in range(0, hosts[key]["number"]):
             hostname = hosts[key]["hostname"]+'-'+str(i+1)
+            instance_ip = hosts[key]["ip"][i]
+            create_instance_vpc(profiles[hosts[key]["profile"]], instance_ip, hostname)
+            print("Instance : %s,  %s created"%(hostname, instance_ip))
 
-            create_instance_vpc(profiles[hosts[key]["profile"]], hosts[key]["ip"][i], hostname)
-            print("Instance : %s created"%(hosts[key]["ip"][i]))
-            if hosts[key]["salt"] == "minion" :
-                ssh_operations.ssh_commands(hosts[key]["ip"][i], 
-                                            KEY_REPOSITORY + 'outscale_' + profiles[hosts[key]["profile"]["key"], 
-                                            ['hash_type: sha256',
-                                                'sudo yum install -y salt-minion',
-                                                 "echo -e 'id: %S\nmaster: %s' > /etc/salt/minion"%(hostname.lower(), 
-                                            SALTMASTER)])
-                print("Instance : %s salt-minion installed"%(hosts[key]["ip"][i]))
     return 0
 
 if __name__ == "__main__" :
