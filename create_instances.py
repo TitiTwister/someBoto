@@ -63,7 +63,8 @@ def install_salt(profiles, hosts):
             key_path = KEY_REPOSITORY + 'outscale_' + profile["key"] + '.rsa'
 
             if hosts[key]["salt"] == "minion" :
-                commands = ["sudo yum install -y salt-minion",
+                commands = ["sudo yum install -y https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el7.noarch.rpm",
+                            "sudo yum install -y salt-minion",
                             "sudo chown centos:centos /etc/salt/minion",
                             "echo -e 'id: %s\nmaster: %s\nhash_type: sha256' > /etc/salt/minion"%(hostname.lower(),SALTMASTER),
                             "sudo systemctl enable salt-minion",
