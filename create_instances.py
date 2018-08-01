@@ -4,6 +4,8 @@ import sys, os
 import boto3
 from login import ec2, client
 import json
+import ssh_operations
+from subprocess import Popen, PIPE
 
 SALTMASTER = 'x.x.x.x'
 KEY_REPOSITORY = '/etc/salt/key/'
@@ -60,7 +62,7 @@ def install_salt(profiles, hosts):
         for i in range(0, hosts[key]["number"]):
             hostname = hosts[key]["hostname"]+'-'+str(i+1)
             instance_ip = hosts[key]["ip"][i]
-            key_path = KEY_REPOSITORY + 'outscale_' + profile["key"] + '.rsa'
+            key_path = KEY_REPOSITORY + 'outscale_' + profiles[hosts[key]["profile"]]["key"] + '.rsa'
 
             if hosts[key]["salt"] == "minion" :
                 commands = ["sudo yum install -y https://repo.saltstack.com/yum/redhat/salt-repo-latest-2.el7.noarch.rpm",
